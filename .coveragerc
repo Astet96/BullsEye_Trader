@@ -1,0 +1,12 @@
+[run]
+omit =
+    */setup.py
+    */__init__.py
+
+[report]
+omit =
+    // tests
+    tests/*
+
+    // sub-modules
+    fed_crawler/*
