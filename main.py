@@ -1,5 +1,8 @@
-# from fastapi import FastAPI
+from fastapi import FastAPI
 
-def mock_fn2():
-    """This is a mock function"""
-    return True
+app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}

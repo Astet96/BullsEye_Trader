@@ -1,0 +1,32 @@
+networks:
+  bullseye_trader:
+services:
+  postgres:
+    image: postgres:latest
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fed_crawler_db  # TODO: use secrets for db_name
+      POSTGRES_USER: fed_crawler  # TODO: use secrets for user
+      POSTGRES_PASSWORD: pass  # TODO: use secrets for password
+    ports:
+      - "5432:5432"  # TODO: remap ports
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - bullseye_trader
+
+  api:
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    ports:
+      - "80:80"  # TODO: remap ports
+    build:
+      context: .
+      dockerfile: Dockerfile_api
+    volumes:
+      - .:/fed_crawler
+    depends_on:
+      - postgres
+    networks:
+      - bullseye_trader

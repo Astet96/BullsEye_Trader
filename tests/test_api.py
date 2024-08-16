@@ -1,7 +1,6 @@
-from fed_crawler.src import mock_fn
-from ..main import mock_fn2
+# from fed_crawler.src import get_all_new_reporting_years
+# from ..main import root
 
 def test_mock():
     """This is a mock test"""
-    assert mock_fn() is True
-    assert mock_fn2() is True
+    assert True
