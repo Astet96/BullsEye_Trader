@@ -1,0 +1,5 @@
+fastapi==0.111.1
+requests==2.32.3
+
+# Install local package(s) in Edit mode
+-e ./yfin_scraper

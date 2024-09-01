@@ -1,0 +1,22 @@
+services:
+  api:
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    build:
+      context: .
+      dockerfile: Dockerfile_api
+    volumes:
+      - .:/bullseye_trader
+    networks:
+      - bullseye_trader
+    environment:
+      - FED_CRAWLER=${FED_CRAWLER}
+      - YFIN_SCRAPER=${YFIN_SCRAPER}
+
+networks:
+  bullseye_trader:
+    name: bullseye_trader
+    external: true

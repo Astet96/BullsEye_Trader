@@ -40,7 +40,7 @@ async def scrape_ptr_reports():
         host="postgres",
         user="fed_crawler",  # use secrets
         password="pass",  # use secrets
-        port="5432"  # update port mappings
+        port="5433"  # update port mappings
     )
 
     last_known_year = db_get_last_known_year(db_backend)
@@ -66,7 +66,7 @@ class PtrParser(object):
             host="postgres",
             user="fed_crawler",  # use secrets
             password="pass",  # use secrets
-            port="5432"  # update port mappings
+            port="5433"  # update port mappings
         )
 
         for new_report in house_member.new_doc_ids.copy():
@@ -133,7 +133,7 @@ def yearly_returns_parser(year_to_parse: int, yearly_reports_zip: bytes) -> tupl
         host="postgres",
         user="fed_crawler",  # use secrets
         password="pass",  # use secrets
-        port="5432"  # update port mappings
+        port="5433"  # update port mappings
     )
 
     known_members = KnownHouseMembers(db_backend)

@@ -5,10 +5,10 @@ RUN apt-get update
 RUN apt-get install -y ghostscript python3-tk ffmpeg libsm6 libxext6 tesseract-ocr
 
 # Set up work directory
-COPY . /fed_crawler
-WORKDIR /fed_crawler
+COPY . /yfin_scraper
+WORKDIR /yfin_scraper
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["fastapi", "run", "api.py", "--port", "8081", "--reload"]
+CMD ["fastapi", "run", "api.py", "--port", "8082", "--reload"]

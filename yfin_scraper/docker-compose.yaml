@@ -3,14 +3,14 @@ services:
     image: postgres:latest
     restart: unless-stopped
     environment:
-      POSTGRES_DB: fed_crawler_db  # TODO: use secrets for db_name
-      POSTGRES_USER: fed_crawler  # TODO: use secrets for user
+      POSTGRES_DB: yfin_scraper_db  # TODO: use secrets for db_name
+      POSTGRES_USER: yfin_scraper  # TODO: use secrets for user
       POSTGRES_PASSWORD: pass  # TODO: use secrets for password
-      PGPORT: 5433
+      PGPORT: 5434
     expose:
-    - "5433"
+    - "5434"
     ports:
-      - "5433:5433"
+      - "5434:5434"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
@@ -21,12 +21,12 @@ services:
     tty: true
     restart: unless-stopped
     ports:
-      - "8081:8081"
+      - "8082:8082"
     build:
       context: .
       dockerfile: Dockerfile_api
     volumes:
-      - .:/fed_crawler
+      - .:/yfin_scraper
     depends_on:
       - postgres
     networks:
