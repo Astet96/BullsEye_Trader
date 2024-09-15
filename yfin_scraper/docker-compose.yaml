@@ -1,5 +1,6 @@
 services:
   postgres:
+    container_name: yfin_scraper_db
     image: postgres:latest
     restart: unless-stopped
     environment:
@@ -7,21 +8,16 @@ services:
       POSTGRES_USER: yfin_scraper  # TODO: use secrets for user
       POSTGRES_PASSWORD: pass  # TODO: use secrets for password
       PGPORT: 5434
-    expose:
-    - "5434"
-    ports:
-      - "5434:5434"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - bullseye_trader
 
   api:
+    container_name: yfin_scraper
     stdin_open: true
     tty: true
     restart: unless-stopped
-    ports:
-      - "8082:8082"
     build:
       context: .
       dockerfile: Dockerfile_api

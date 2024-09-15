@@ -11,4 +11,4 @@ WORKDIR /yfin_scraper
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-CMD ["fastapi", "run", "api.py", "--port", "8082", "--reload"]
+CMD ["fastapi", "run", "api.py", "--port", "80", "--reload"]

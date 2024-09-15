@@ -6,13 +6,15 @@ import os
 app = FastAPI()
 
 # Services
-@app.get("/fed_crawler/{path:path}")
-async def fed_crawler(request: Request, path: str):
-    return json.loads(requests.get(f"http://{os.environ.get('FED_CRAWLER')}:8081/{path}").content.decode('utf-8'))
+def redirect_services_api(service: str):
+    @app.get(f"/{service}/"+"{path:path}")
+    async def service_redirect(request: Request, path: str):
+        return json.loads(requests.get(f"http://{service}/{path}").content.decode('utf-8'))
+    return service_redirect
 
-@app.get("/yfin_scraper/{path:path}")
-async def yfin_scraper(request: Request, path: str):
-    return json.loads(requests.get(f"http://{os.environ.get('YFIN_SCRAPER')}:8082/{path}").content.decode('utf-8'))
+for service in os.environ.get("SERVICES").split(" "):  # pyright: ignore[reportOptionalMemberAccess]
+    globals()[service] = redirect_services_api(service)
+
 
 # API
 @app.get("/")

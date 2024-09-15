@@ -1,5 +1,7 @@
 services:
   api:
+    container_name: bullseye_trader
+    env_file: "services.env"
     stdin_open: true
     tty: true
     restart: unless-stopped
@@ -12,11 +14,8 @@ services:
       - .:/bullseye_trader
     networks:
       - bullseye_trader
-    environment:
-      - FED_CRAWLER=${FED_CRAWLER}
-      - YFIN_SCRAPER=${YFIN_SCRAPER}
 
 networks:
   bullseye_trader:
     name: bullseye_trader
-    external: true
+    driver: bridge

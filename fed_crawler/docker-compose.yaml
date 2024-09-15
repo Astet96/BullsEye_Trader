@@ -1,5 +1,6 @@
 services:
   postgres:
+    container_name: fed_crawler_db
     image: postgres:latest
     restart: unless-stopped
     environment:
@@ -7,21 +8,16 @@ services:
       POSTGRES_USER: fed_crawler  # TODO: use secrets for user
       POSTGRES_PASSWORD: pass  # TODO: use secrets for password
       PGPORT: 5433
-    expose:
-    - "5433"
-    ports:
-      - "5433:5433"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - bullseye_trader
 
   api:
+    container_name: fed_crawler
     stdin_open: true
     tty: true
     restart: unless-stopped
-    ports:
-      - "8081:8081"
     build:
       context: .
       dockerfile: Dockerfile_api
