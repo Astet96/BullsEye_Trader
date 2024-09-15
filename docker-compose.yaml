@@ -1,0 +1,21 @@
+services:
+  api:
+    container_name: bullseye_trader
+    env_file: "services.env"
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    build:
+      context: .
+      dockerfile: Dockerfile_api
+    volumes:
+      - .:/bullseye_trader
+    networks:
+      - bullseye_trader
+
+networks:
+  bullseye_trader:
+    name: bullseye_trader
+    driver: bridge

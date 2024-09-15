@@ -1,0 +1,15 @@
+FROM python:3.12
+
+# Update package lists
+RUN apt-get update
+
+# Set up work directory
+RUN mkdir bullseye_trader
+COPY /requirements.txt /bullseye_trader
+COPY /api.py /bullseye_trader
+WORKDIR /bullseye_trader
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["fastapi", "run", "api.py", "--port", "80", "--reload"]
